@@ -75,8 +75,19 @@ int main( void )
 	DDRC = 1 << PINC7;
 
 main_wakeup_loop:
-	power_spi_disable( );
 	power_adc_disable( );
+	power_usart0_disable( );
+	power_usart1_disable( );
+	power_spi_disable( );
+	power_twi_disable( );
+	power_timer1_disable( );
+	power_timer2_disable( );
+	power_timer3_disable( );
+	power_usb_disable( );
+	PLLCSR &= ~_BV(PLLE);
+	USBCON |= _BV(FRZCLK);
+	USBCON &= ~_BV(USBE);
+
 	set_sleep_mode(SLEEP_MODE_PWR_DOWN);
 	if (0 == (wakeup_counter % 38)) wdt_interrupt_enable(WDTO_4S);
 	else wdt_interrupt_enable(WDTO_8S);
