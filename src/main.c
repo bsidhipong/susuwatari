@@ -72,6 +72,8 @@ int main( void )
 	cbi(MCUSR, WDRF);
 	wdt_disable( );
 
+	DDRC = 1 << PINC7;
+
 main_wakeup_loop:
 	power_spi_disable( );
 	power_adc_disable( );
